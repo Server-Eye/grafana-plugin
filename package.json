@@ -1,7 +1,7 @@
 {
-  "name": "simple-datasource",
+  "name": "server-eye-grafana-plugin",
   "version": "1.0.0",
-  "description": "Example of a Grafana Data Source",
+  "description": "ServerEye Grafana Data Source",
   "scripts": {
     "build": "grafana-toolkit plugin:build",
     "test": "grafana-toolkit plugin:test",

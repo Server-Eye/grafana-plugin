@@ -1,22 +1,22 @@
 {
   "type": "datasource",
-  "name": "Simple Data Source",
-  "id": "myorgid-simple-datasource",
+  "name": "ServerEye Data Source",
+  "id": "server-eye-data-source",
   "metrics": true,
 
   "info": {
-    "description": "Simple Data Source",
+    "description": "ServerEye integration for Grafana",
     "author": {
-      "name": "Your Name"
+      "name": "Jan-Robin Aumann"
     },
-    "keywords": ["Simple"],
+    "keywords": ["ServerEye"],
     "logos": {
-      "small": "img/logo.svg",
-      "large": "img/logo.svg"
+      "small": "img/logo.ico",
+      "large": "img/logo.ico"
     },
     "links": [
-      { "name": "Website", "url": "https://github.com/grafana/simple-datasource" },
-      { "name": "License", "url": "https://github.com/grafana/simple-datasource/blob/master/LICENSE" }
+      { "name": "Website", "url": "" },
+      { "name": "License", "url": "" }
     ],
     "screenshots": [],
     "version": "%VERSION%",
