@@ -16,13 +16,11 @@ export class DataSource extends DataSourceApi<ServerEyeQuery, ServerEyeDataSourc
     const { range } = options;
     const from = range.from.valueOf();
     const to = range.to.valueOf();
-    console.log(`from: ${from}\tto: ${to}`);
 
     // Return a constant for each query.
     const data = await Promise.all(
       options.targets.map(target => {
         const query = target;
-        console.log(query);
         if (query.hide) {
           return new MutableDataFrame();
         } else {
@@ -31,14 +29,19 @@ export class DataSource extends DataSourceApi<ServerEyeQuery, ServerEyeDataSourc
               return value.json();
             })
             .then((json: any) => {
-              console.log(json);
-              let times: any[] = [];
-              let values: any[] = [];
+              if (!json.values) {
+                return new MutableDataFrame();
+              }
+              const times: any[] = [];
+              const values: any[] = [];
               json.values.forEach((value: any) => {
-                times.push(value.MsDate);
-                values.push(value.Value);
+                times.push(value.msDate);
+                values.push(value.value);
               });
-              let fields: any[] = [{ type: "time", values: times }, { name: query.selectedAgentTarget.value, type: "number", values: values }];
+              const fields: any[] = [
+                { type: 'time', values: times },
+                { name: query.selectedAgentTarget.value, type: 'number', values: values },
+              ];
               return new MutableDataFrame({ refId: query.refId, fields });
             });
         }
