@@ -3,26 +3,56 @@
   "name": "ServerEye Data Source",
   "id": "server-eye-data-source",
   "metrics": true,
-
   "info": {
     "description": "ServerEye integration for Grafana",
     "author": {
       "name": "Jan-Robin Aumann"
     },
-    "keywords": ["ServerEye"],
+    "keywords": [
+      "ServerEye"
+    ],
     "logos": {
       "small": "img/logo.ico",
       "large": "img/logo.ico"
     },
     "links": [
-      { "name": "Website", "url": "" },
-      { "name": "License", "url": "" }
+      {
+        "name": "Website",
+        "url": ""
+      },
+      {
+        "name": "License",
+        "url": ""
+      }
     ],
     "screenshots": [],
     "version": "%VERSION%",
     "updated": "%TODAY%"
   },
-
+  "routes": [
+    {
+      "path": "targets",
+      "method": "GET",
+      "url": "https://grafana-plugin.server-eye.de/",
+      "headers": [
+        {
+          "name": "X-API-Key",
+          "content": "{{.SecureJsonData.apiKey}}"
+        }
+      ]
+    },
+    {
+      "path": "values",
+      "method": "GET",
+      "url": "https://grafana-plugin.server-eye.de/",
+      "headers": [
+        {
+          "name": "X-API-Key",
+          "content": "{{.SecureJsonData.apiKey}}"
+        }
+      ]
+    }
+  ],
   "dependencies": {
     "grafanaVersion": "6.5.x",
     "plugins": []

@@ -18,25 +18,17 @@ export class QueryEditor extends PureComponent<Props, State> {
         return this.props.query.agentid;
       }
     };
-    await fetch(`http://${this.props.datasource.backendServerURL}:${this.props.datasource.backendServerPort}/${target()}/targets`)
-      .then(value => {
-        return value.json();
-      })
-      .then(json => {
-        if (Array.isArray(json)) {
-          const selectableTargets = json.map(
-            (target): SelectableValue<string> => {
-              return { label: target.saveName, value: target.saveName, description: target.name };
-            }
-          );
-          const { onChange, query } = this.props;
-          onChange({ ...query, possibleAgentTargets: selectableTargets });
-          // this.render();
-        } else {
-          //TODO Turn into proper error message
-          console.log('no result obtained');
+
+    //Retrieve the targets for the new AgentID, and upon arrival map them into 'SelectableValue' fields for the UI
+    this.props.datasource.retrieveTargetsForAgent(target()).then(targets => {
+      const selectableTargets = targets.map(
+        (target): SelectableValue<string> => {
+          return { label: target.saveName, value: target.saveName, description: target.name };
         }
-      });
+      );
+      const { onChange, query } = this.props;
+      onChange({ ...query, possibleAgentTargets: selectableTargets });
+    });
   }
 
   async componentDidMount() {}
@@ -52,6 +44,8 @@ export class QueryEditor extends PureComponent<Props, State> {
       onChange({ ...query, agentid: event.target.value });
       this.refreshPossibleAgentTargets(event.target.value);
     } else {
+      const { onChange, query } = this.props;
+      onChange({ ...query, agentid: event.target.value });
       console.log('not an agentid yet');
       //TODO Turn into proper error message
     }

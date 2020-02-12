@@ -1,54 +1,74 @@
 import { DataQueryRequest, DataQueryResponse, DataSourceApi, DataSourceInstanceSettings, MutableDataFrame } from '@grafana/data';
 
-import { ServerEyeQuery, ServerEyeDataSourceOptions } from './types';
+import { ServerEyeQuery, ServerEyeDataSourceOptions, Target, ValuesResult } from './types';
 
 export class DataSource extends DataSourceApi<ServerEyeQuery, ServerEyeDataSourceOptions> {
   backendServerURL: string;
   backendServerPort: number;
 
-  constructor(instanceSettings: DataSourceInstanceSettings<ServerEyeDataSourceOptions>) {
+  /** @ngInject */
+  constructor(instanceSettings: DataSourceInstanceSettings<ServerEyeDataSourceOptions>, private backendSrv: any) {
     super(instanceSettings);
-    this.backendServerPort = instanceSettings.jsonData.backendServerPort;
-    this.backendServerURL = instanceSettings.jsonData.backendServerURL;
+    this.backendServerPort = instanceSettings.jsonData.backendServerPort || 80;
+    this.backendServerURL = instanceSettings.url || 'https://grafana-backend.server-eye.de';
+    this.backendSrv = backendSrv;
   }
 
   async query(options: DataQueryRequest<ServerEyeQuery>): Promise<DataQueryResponse> {
     const { range } = options;
     const from = range.from.valueOf();
     const to = range.to.valueOf();
-
-    // Return a constant for each query.
     const data = await Promise.all(
       options.targets.map(target => {
         const query = target;
         if (query.hide) {
           return new MutableDataFrame();
         } else {
-          return fetch(`http://${this.backendServerURL}:${this.backendServerPort}/${from}/${to}/${query.agentid}/${query.selectedAgentTarget.value}`)
-            .then((value: any) => {
-              return value.json();
-            })
-            .then((json: any) => {
-              if (!json.values) {
-                return new MutableDataFrame();
-              }
-              const times: any[] = [];
-              const values: any[] = [];
-              json.values.forEach((value: any) => {
-                times.push(value.msDate);
-                values.push(value.value);
-              });
-              const fields: any[] = [
-                { type: 'time', values: times },
-                { name: query.selectedAgentTarget.value, type: 'number', values: values },
-              ];
-              return new MutableDataFrame({ refId: query.refId, fields });
+          return this.doQuery(target.agentid, target.selectedAgentTarget.value || '', from, to).then(result => {
+            console.log(result);
+            if (!result.values) {
+              return new MutableDataFrame();
+            }
+            let times: any[] = [];
+            let values: any[] = [];
+            result.values.forEach(value => {
+              times.push(value.msDate);
+              values.push(value.value);
             });
+            const fields: any[] = [
+              { type: 'time', values: times },
+              { name: query.selectedAgentTarget.value, type: 'number', values: values },
+            ];
+            return new MutableDataFrame({ refId: query.refId, fields });
+          });
         }
       })
     );
-
     return { data };
+  }
+
+  async doQuery(agentId: string, saveName: string, from: number, to: number): Promise<ValuesResult> {
+    return this.backendSrv
+      .datasourceRequest({
+        url: `${this.backendServerURL}/values/1/agent/${agentId}/${from}/${to}/${saveName}`,
+      })
+      .then((value: any) => {
+        return value.data;
+      });
+  }
+
+  async retrieveTargetsForAgent(agendtId: string): Promise<Target[]> {
+    return this.backendSrv
+      .datasourceRequest({
+        url: this.backendServerURL + `/targets/1/agent/${agendtId}/targets`,
+        method: 'GET',
+      })
+      .then((value: any) => {
+        return value.data;
+      })
+      .catch((err: Error) => {
+        return err;
+      });
   }
 
   async testDatasource() {
