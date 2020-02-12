@@ -8,9 +8,11 @@ type Props = QueryEditorProps<DataSource, ServerEyeQuery, ServerEyeDataSourceOpt
 
 interface State {}
 
+//Regex to recognize valid agentIds
+const agentIdRegex = /[a-z0-9]{8}\-[a-z0-9]{4}\-[a-z0-9]{4}\-[a-z0-9]{4}\-[a-z0-9]{12}/g;
+
 export class QueryEditor extends PureComponent<Props, State> {
   async refreshPossibleAgentTargets(newAgentID?: string) {
-    // console.log(this.props.query.agentid)
     const target = () => {
       if (newAgentID) {
         return newAgentID;
@@ -31,35 +33,28 @@ export class QueryEditor extends PureComponent<Props, State> {
     });
   }
 
-  async componentDidMount() {}
-
   onAgentTargetChange = (item: SelectableValue<string>) => {
     const { onChange, query } = this.props;
     onChange({ ...query, selectedAgentTarget: item });
   };
 
   onAgentIDChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.value.match(/[a-z0-9]{8}\-[a-z0-9]{4}\-[a-z0-9]{4}\-[a-z0-9]{4}\-[a-z0-9]{12}/g)) {
-      const { onChange, query } = this.props;
-      onChange({ ...query, agentid: event.target.value });
+    const { onChange, query } = this.props;
+    onChange({ ...query, agentid: event.target.value });
+    //Check if the new value from the event matches the agentId-regex
+    if (event.target.value.match(agentIdRegex)) {
+      //if it does, refresh the Targets for the SelectableValue field
       this.refreshPossibleAgentTargets(event.target.value);
-    } else {
-      const { onChange, query } = this.props;
-      onChange({ ...query, agentid: event.target.value });
-      console.log('not an agentid yet');
-      //TODO Turn into proper error message
     }
+    //TODO: Would be handy if this could mark the FormField as invalid or similar in case it is not a valid agentId
   };
 
   render() {
-    console.log('rendering');
     const query = this.props.query;
-
     const { agentid, possibleAgentTargets, selectedAgentTarget } = query;
-
     return (
       <div className="gf-form">
-        <FormField width={4} value={agentid} onChange={this.onAgentIDChange} label="AgentID" type="string"></FormField>
+        <FormField width={100} value={agentid} onChange={this.onAgentIDChange} label="AgentID" type="string"></FormField>
         <Select
           value={selectedAgentTarget}
           placeholder={'Select Agent Target'}
