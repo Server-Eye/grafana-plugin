@@ -29,8 +29,8 @@ export class DataSource extends DataSourceApi<ServerEyeQuery, ServerEyeDataSourc
             if (!result.values) {
               return new MutableDataFrame();
             }
-            let times: any[] = [];
-            let values: any[] = [];
+            const times: any[] = [];
+            const values: any[] = [];
             result.values.forEach(value => {
               times.push(value.msDate);
               values.push(value.value);
