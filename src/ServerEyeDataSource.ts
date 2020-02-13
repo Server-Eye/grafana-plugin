@@ -16,8 +16,8 @@ export class DataSource extends DataSourceApi<ServerEyeQuery, ServerEyeDataSourc
 
   async query(options: DataQueryRequest<ServerEyeQuery>): Promise<DataQueryResponse> {
     const { range } = options;
-    const from = range.from.valueOf();
-    const to = range.to.valueOf();
+    const from = range?.from.valueOf() || 0;
+    const to = range?.to.valueOf() || 0;
     const data = await Promise.all(
       options.targets.map(target => {
         const query = target;
