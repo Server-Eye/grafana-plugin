@@ -54,6 +54,9 @@ export class DataSource extends DataSourceApi<ServerEyeQuery, ServerEyeDataSourc
       })
       .then((value: any) => {
         return value.data;
+      })
+      .catch((error: Error) => {
+        return error;
       });
   }
 
@@ -66,8 +69,8 @@ export class DataSource extends DataSourceApi<ServerEyeQuery, ServerEyeDataSourc
       .then((value: any) => {
         return value.data;
       })
-      .catch((err: Error) => {
-        return err;
+      .catch((error: Error) => {
+        return error;
       });
   }
 
