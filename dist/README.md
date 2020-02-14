@@ -4,7 +4,7 @@ This is a grafana data source plugin for your instance of [ServerEye Monitoring 
 
 I can display all the data from your sensors via access to our API with one of your API keys.
 
-![Configuration page](https://raw.githubusercontent.com/Server-Eye/grafana-plugin/master/dist/img/overview.png)
+![Configuration page](https://raw.githubusercontent.com/Server-Eye/grafana-plugin/master/src/img/overview.png)
 
 ## Installation
 
@@ -16,7 +16,7 @@ Alternatively you can download it from the official Grafana plugin store [here](
 
 All that is needed is an API key from your OCC. Just copy it into the API key field on the config page of your ServerEye datasource instance. This will give you access to all the agents that that API key is authorized with.
 
-![Configuration page](https://raw.githubusercontent.com/Server-Eye/grafana-plugin/master/dist/img/configpage.png)
+![Configuration page](https://raw.githubusercontent.com/Server-Eye/grafana-plugin/master/src/img/configpage.png)
 
 ## Requirements
 
