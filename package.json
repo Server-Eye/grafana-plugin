@@ -1,6 +1,6 @@
 {
   "name": "server-eye-grafana-plugin",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "ServerEye Grafana Data Source",
   "scripts": {
     "build": "grafana-toolkit plugin:build",
