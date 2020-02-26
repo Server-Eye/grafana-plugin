@@ -32,18 +32,17 @@ export interface Target {
   name: string;
 }
 
-export interface ValuesResult {
+export interface TimeSeries {
+  values: Measurement[];
   from: number;
   to: number;
-  values: Value[];
 }
 
-export interface Value {
+interface Measurement {
   unit: number;
   value: number;
-  msDate: number;
-  errorValue: number;
-  maxPValue: number;
-  minValue: number;
   maxValue: number;
+  minValue: number;
+  maxPValue: number;
+  msDate: number;
 }

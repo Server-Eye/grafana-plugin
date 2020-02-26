@@ -1,6 +1,6 @@
 import { DataQueryRequest, DataQueryResponse, DataSourceApi, DataSourceInstanceSettings, MutableDataFrame } from '@grafana/data';
 
-import { ServerEyeQuery, ServerEyeDataSourceOptions, Target, ValuesResult } from './types';
+import { ServerEyeQuery, ServerEyeDataSourceOptions, Target, TimeSeries } from './types';
 
 export class DataSource extends DataSourceApi<ServerEyeQuery, ServerEyeDataSourceOptions> {
   backendServerURL: string;
@@ -24,13 +24,12 @@ export class DataSource extends DataSourceApi<ServerEyeQuery, ServerEyeDataSourc
         if (query.hide) {
           return new MutableDataFrame();
         } else {
-          return this.doQuery(target.agentid, target.selectedAgentTarget.value || '', from, to).then(result => {
-            console.log(result);
+          return this.doQuery(target.agentid, target.selectedAgentTarget.value || '', from, to).then((result: TimeSeries) => {
             if (!result.values) {
               return new MutableDataFrame();
             }
-            const times: any[] = [];
-            const values: any[] = [];
+            const times: number[] = [];
+            const values: number[] = [];
             result.values.forEach(value => {
               times.push(value.msDate);
               values.push(value.value);
@@ -47,7 +46,7 @@ export class DataSource extends DataSourceApi<ServerEyeQuery, ServerEyeDataSourc
     return { data };
   }
 
-  async doQuery(agentId: string, saveName: string, from: number, to: number): Promise<ValuesResult> {
+  async doQuery(agentId: string, saveName: string, from: number, to: number): Promise<TimeSeries> {
     return this.backendSrv
       .datasourceRequest({
         url: `${this.backendServerURL}/values/1/agent/${agentId}/${from}/${to}/${saveName}`,
