@@ -38,7 +38,7 @@ export class DataSource extends DataSourceApi<ServerEyeQuery, ServerEyeDataSourc
               { type: 'time', values: times },
               { name: query.selectedAgentTarget.value, type: 'number', values: values },
             ];
-            return new MutableDataFrame({ refId: query.refId, fields });
+            return new MutableDataFrame({ name: target.selectedAgentTarget.value, refId: query.refId, fields });
           });
         }
       })
