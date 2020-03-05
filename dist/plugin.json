@@ -1,7 +1,7 @@
 {
   "type": "datasource",
   "name": "ServerEye Data Source",
-  "id": "server-eye-data-source",
+  "id": "servereye-datasource",
   "metrics": true,
   "info": {
     "description": "ServerEye integration for Grafana",
@@ -27,7 +27,7 @@
     ],
     "screenshots": [],
     "version": "0.0.4",
-    "updated": "2020-03-03"
+    "updated": "2020-03-05"
   },
   "routes": [
     {
