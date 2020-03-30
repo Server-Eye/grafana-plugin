@@ -8,6 +8,8 @@ Das Installieren des Plugins ist sehr einfach und beinhaltet nur zwei Schritte:
 
 Beide dieser Aufgaben können jeweils entweder von Hand im Desktop Interface ausgeführt werden oder per Kommandozeilenbefehl erledigt werden.
 
+Nach dem Installieren muss der Grafana-Dienst neugestartet werden. 
+
 ## Download des Plugins
 
 ### Linux (und Unix-ähnliche Systeme)
