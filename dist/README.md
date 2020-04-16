@@ -2,7 +2,7 @@
 
 This is a grafana data source plugin for your instance of [ServerEye Monitoring Software](https://server-eye.de).
 
-I can display all the data from your sensors via access to our API with one of your API keys.
+It can display all the data from your sensors via access to our API with one of your API keys.
 
 ![Configuration page](https://raw.githubusercontent.com/Server-Eye/grafana-plugin/master/src/img/overview.png)
 
