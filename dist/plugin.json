@@ -22,11 +22,24 @@
       },
       {
         "name": "License",
-        "url": ""
+        "url": "https://github.com/server-eye/grafana-plugin/blob/master/LICENSE"
+      },
+      {
+        "name": "Repository",
+        "url": "https://github.com/server-eye/grafana-plugin"
       }
     ],
-    "screenshots": [],
-    "version": "0.0.7",
+    "screenshots": [
+      {
+        "name": "Config Page",
+        "url": "https://raw.githubusercontent.com/Server-Eye/grafana-plugin/master/src/img/configpage.png"
+      },
+      {
+        "name": "Config Page",
+        "url": "https://raw.githubusercontent.com/Server-Eye/grafana-plugin/master/src/img/overview.png"
+      }
+    ],
+    "version": "0.0.8",
     "updated": "2020-06-12"
   },
   "routes": [
@@ -54,7 +67,7 @@
     }
   ],
   "dependencies": {
-    "grafanaVersion": "6.5.x",
+    "grafanaVersion": "7.x.x",
     "plugins": []
   }
 }

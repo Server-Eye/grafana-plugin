@@ -1,4 +1,10 @@
-import { DataQueryRequest, DataQueryResponse, DataSourceApi, DataSourceInstanceSettings, MutableDataFrame } from '@grafana/data';
+import {
+  DataQueryRequest,
+  DataQueryResponse,
+  DataSourceApi,
+  DataSourceInstanceSettings,
+  MutableDataFrame,
+} from '@grafana/data';
 
 import { ServerEyeQuery, ServerEyeDataSourceOptions, Target, TimeSeries } from './types';
 
@@ -24,22 +30,24 @@ export class DataSource extends DataSourceApi<ServerEyeQuery, ServerEyeDataSourc
         if (query.hide) {
           return new MutableDataFrame();
         } else {
-          return this.doQuery(target.agentid, target.selectedAgentTarget.value || '', from, to).then((result: TimeSeries) => {
-            if (!result.values) {
-              return new MutableDataFrame();
+          return this.doQuery(target.agentid, target.selectedAgentTarget.value || '', from, to).then(
+            (result: TimeSeries) => {
+              if (!result.values) {
+                return new MutableDataFrame();
+              }
+              const times: number[] = [];
+              const values: number[] = [];
+              result.values.forEach(value => {
+                times.push(value.msDate);
+                values.push(value.value);
+              });
+              const fields: any[] = [
+                { type: 'time', values: times },
+                { name: query.selectedAgentTarget.value, type: 'number', values: values },
+              ];
+              return new MutableDataFrame({ name: target.selectedAgentTarget.value, refId: query.refId, fields });
             }
-            const times: number[] = [];
-            const values: number[] = [];
-            result.values.forEach(value => {
-              times.push(value.msDate);
-              values.push(value.value);
-            });
-            const fields: any[] = [
-              { type: 'time', values: times },
-              { name: query.selectedAgentTarget.value, type: 'number', values: values },
-            ];
-            return new MutableDataFrame({ name: target.selectedAgentTarget.value, refId: query.refId, fields });
-          });
+          );
         }
       })
     );

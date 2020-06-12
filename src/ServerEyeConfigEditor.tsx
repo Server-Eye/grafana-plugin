@@ -1,8 +1,10 @@
 import React, { PureComponent, ChangeEvent } from 'react';
 
-import { SecretFormField } from '@grafana/ui';
+import { LegacyForms } from '@grafana/ui';
 import { DataSourcePluginOptionsEditorProps } from '@grafana/data';
 import { ServerEyeDataSourceOptions, ServerEyeSecureJsonData } from './types';
+
+const { SecretFormField } = LegacyForms;
 
 interface Props extends DataSourcePluginOptionsEditorProps<ServerEyeDataSourceOptions> {}
 

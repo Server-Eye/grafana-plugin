@@ -1,8 +1,10 @@
 import React, { PureComponent, ChangeEvent } from 'react';
-import { FormField, Select } from '@grafana/ui';
+import { LegacyForms, Select } from '@grafana/ui';
 import { QueryEditorProps, SelectableValue } from '@grafana/data';
 import { DataSource } from './ServerEyeDataSource';
 import { ServerEyeQuery, ServerEyeDataSourceOptions } from './types';
+
+const { FormField } = LegacyForms;
 
 type Props = QueryEditorProps<DataSource, ServerEyeQuery, ServerEyeDataSourceOptions>;
 
@@ -54,7 +56,13 @@ export class QueryEditor extends PureComponent<Props, State> {
     const { agentid, possibleAgentTargets, selectedAgentTarget } = query;
     return (
       <div className="gf-form">
-        <FormField width={100} value={agentid} onChange={this.onAgentIDChange} label="AgentID" type="string"></FormField>
+        <FormField
+          width={100}
+          value={agentid}
+          onChange={this.onAgentIDChange}
+          label="AgentID"
+          type="string"
+        ></FormField>
         <Select
           value={selectedAgentTarget}
           placeholder={'Select Agent Target'}
