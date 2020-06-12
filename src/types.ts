@@ -16,7 +16,7 @@ export interface ServerEyeDataSourceOptions extends DataSourceJsonData {
 }
 
 export const defaultOptions: Partial<ServerEyeDataSourceOptions> = {
-  backendServerURL: 'grafana-plugin.server-eye.de',
+  backendServerURL: 'grafana-backend.server-eye.de',
   backendServerPort: 80,
 };
 
