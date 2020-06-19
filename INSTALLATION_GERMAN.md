@@ -25,6 +25,12 @@ curl --silent 'https://api.github.com/repos/Server-Eye/grafana-plugin/tags'\
     && rm -rf Server-Eye-grafana-plugin-* server-eye-data-source.tar.gz
 ```
 
+Alternativ bieten wir jetzt auch das Download-Script an, dass eine Auswahl der Version erlaubt (Anders als der obige Befehl setzt es die bash shell vorraus, alternativ kann auch zsh verwendet werden). Es kann einfach mit folgendem Befehl gestartet werden:
+
+```bash
+bash -c "curl -fsSL https://raw.githubusercontent.com/Server-Eye/grafana-plugin/master/download.sh)"
+```
+
 * Von Hand:
 
 Rufe im Webbrowser die [Releases-Seite des Repositories](https://github.com/Server-Eye/grafana-plugin/releases) auf. Suche die neueste/gewünschte Version aus und lade den Source Code im bevorzugten Komprimierungsformat runter (.zip oder .tar.gz).

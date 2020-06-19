@@ -1,0 +1,1 @@
+Invoke-WebRequest -URI https://api.github.com/repos/Server-Eye/grafana-plugin/tags | ConvertFrom-Json
