@@ -28,7 +28,7 @@ curl --silent 'https://api.github.com/repos/Server-Eye/grafana-plugin/tags'\
 Alternativ bieten wir jetzt auch das Download-Script an, dass eine Auswahl der Version erlaubt (Anders als der obige Befehl setzt es die bash shell vorraus, alternativ kann auch zsh verwendet werden). Es kann einfach mit folgendem Befehl gestartet werden:
 
 ```bash
-bash -c "curl -fsSL https://raw.githubusercontent.com/Server-Eye/grafana-plugin/master/download.sh)"
+bash -c "curl -fsSL https://raw.githubusercontent.com/Server-Eye/grafana-plugin/master/download.sh"
 ```
 
 * Von Hand:
