@@ -16,7 +16,7 @@ export class DataSource extends DataSourceApi<ServerEyeQuery, ServerEyeDataSourc
   constructor(instanceSettings: DataSourceInstanceSettings<ServerEyeDataSourceOptions>, private backendSrv: any) {
     super(instanceSettings);
     this.backendServerPort = instanceSettings.jsonData.backendServerPort || 80;
-    this.backendServerURL = instanceSettings.url || 'https://grafana-backend.server-eye.de';
+    this.backendServerURL = instanceSettings.url || 'https://api-ms.server-eye.de/grafana-plugin';
     this.backendSrv = backendSrv;
   }
 
@@ -25,7 +25,7 @@ export class DataSource extends DataSourceApi<ServerEyeQuery, ServerEyeDataSourc
     const from = range?.from.valueOf() || 0;
     const to = range?.to.valueOf() || 0;
     const data = await Promise.all(
-      options.targets.map(target => {
+      options.targets.map((target) => {
         const query = target;
         if (query.hide) {
           return new MutableDataFrame();
@@ -37,7 +37,7 @@ export class DataSource extends DataSourceApi<ServerEyeQuery, ServerEyeDataSourc
               }
               const times: number[] = [];
               const values: number[] = [];
-              result.values.forEach(value => {
+              result.values.forEach((value) => {
                 times.push(value.msDate);
                 values.push(value.value);
               });
@@ -57,7 +57,7 @@ export class DataSource extends DataSourceApi<ServerEyeQuery, ServerEyeDataSourc
   async doQuery(agentId: string, saveName: string, from: number, to: number): Promise<TimeSeries> {
     return this.backendSrv
       .datasourceRequest({
-        url: `${this.backendServerURL}/values/1/agent/${agentId}/${from}/${to}/${saveName}`,
+        url: `${this.backendServerURL}/${agentId}/${saveName}/${from}/${to}`,
       })
       .then((value: any) => {
         return value.data;
@@ -70,7 +70,7 @@ export class DataSource extends DataSourceApi<ServerEyeQuery, ServerEyeDataSourc
   async retrieveTargetsForAgent(agendtId: string): Promise<Target[]> {
     return this.backendSrv
       .datasourceRequest({
-        url: this.backendServerURL + `/targets/1/agent/${agendtId}/targets`,
+        url: this.backendServerURL + `/${agendtId}/targets`,
         method: 'GET',
       })
       .then((value: any) => {

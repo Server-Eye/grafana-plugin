@@ -24,12 +24,10 @@ export class QueryEditor extends PureComponent<Props, State> {
     };
 
     //Retrieve the targets for the new AgentID, and upon arrival map them into 'SelectableValue' fields for the UI
-    this.props.datasource.retrieveTargetsForAgent(target()).then(targets => {
-      const selectableTargets = targets.map(
-        (target): SelectableValue<string> => {
-          return { label: target.saveName, value: target.saveName, description: target.name };
-        }
-      );
+    this.props.datasource.retrieveTargetsForAgent(target()).then((targets) => {
+      const selectableTargets = targets.map((target): SelectableValue<string> => {
+        return { label: target.saveName, value: target.saveName, description: target.name };
+      });
       const { onChange, query } = this.props;
       onChange({ ...query, possibleAgentTargets: selectableTargets });
     });
