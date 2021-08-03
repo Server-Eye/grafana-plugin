@@ -2,11 +2,12 @@
 
 Das Server-Eye Grafana Plugin erlaubt die Visualisierung und Überwachung von Sensorwerten außerhalb des OCC.
 
-Das Installieren des Plugins ist sehr einfach und beinhaltet nur zwei Schritte: 
+Das Installieren des Plugins ist sehr einfach und beinhaltet nur drei Schritte: 
 * Download des Plugins
 * Verschieben der Installationsdateien in das Plugin-Verzeichnis von Grafana
+* Erlauben von unsignierten Plugins in der Konfigurationsdatei
 
-Beide dieser Aufgaben können jeweils entweder von Hand im Desktop Interface ausgeführt werden oder per Kommandozeilenbefehl erledigt werden.
+Diese Aufgaben können jeweils entweder von Hand im Desktop Interface ausgeführt werden oder per Kommandozeilenbefehl erledigt werden.
 
 Nach dem Installieren muss der Grafana-Dienst neugestartet werden. 
 
@@ -81,3 +82,10 @@ Move-Item -Path server-eye-data-source -Destination 'C:\Program Files\GrafanaLab
 * Von Hand:
 
 Kopiere den umbenannten Ordner in den Plugin-Ordner ihrer Grafana-Installation. Der standardmäßige Pfad unter Linux und Unix-ähnlichen Systemen ist hier `C:\Program Files\GrafanaLabs\grafana\data\plugins`.
+
+## Anpassen der Konfigurationsdatei
+
+### Alle Platformen
+
+Anschließend muss die Datei `grafana.ini` dahingehend editiert werden, dass sie eine `[plugins]`-Sektion enthält. In dies muss über das `allow_loading_unsigned_plugins`-Attribut das `server-eye-grafana-plugin` in einer kommaseparierten Liste aufgeführt werden as per [Grafana-Doku](https://grafana.com/docs/grafana/latest/administration/configuration/#allow_loading_unsigned_plugins).
+An dieser Stelle möchten wir erwähnen, dass dies nötig ist, da Grafana der Signaturprozess für Plugins außerhalb unserer Kontrolle liegt. Grafana selbst vertreibt immer noch einige Plugins, die ebenfalls über diesen Umweg aktiviert werden müssen ("Grafana Image Renderer" und "worldPing").
