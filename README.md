@@ -20,4 +20,4 @@ All that is needed is an API key from your OCC. Just copy it into the API key fi
 
 ## Requirements
 
-This plugin requires a Grafana version greater or equal to 6.5 
+This plugin requires a Grafana version greater or equal to 7 
