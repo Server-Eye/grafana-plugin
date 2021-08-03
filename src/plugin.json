@@ -46,7 +46,7 @@
     {
       "path": "targets",
       "method": "GET",
-      "url": "https://grafana-backend.server-eye.de/",
+      "url": "https://api-ms.server-eye.de/grafana-plugin",
       "headers": [
         {
           "name": "X-API-Key",
@@ -57,7 +57,7 @@
     {
       "path": "values",
       "method": "GET",
-      "url": "https://grafana-backend.server-eye.de/",
+      "url": "https://api-ms.server-eye.de/grafana-plugin",
       "headers": [
         {
           "name": "X-API-Key",

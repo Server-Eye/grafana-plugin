@@ -39,14 +39,14 @@
         "url": "https://raw.githubusercontent.com/Server-Eye/grafana-plugin/master/src/img/overview.png"
       }
     ],
-    "version": "0.0.8",
-    "updated": "2021-07-27"
+    "version": "1.0.0",
+    "updated": "2021-08-03"
   },
   "routes": [
     {
       "path": "targets",
       "method": "GET",
-      "url": "https://grafana-backend.server-eye.de/",
+      "url": "https://api-ms.server-eye.de/grafana-plugin",
       "headers": [
         {
           "name": "X-API-Key",
@@ -57,7 +57,7 @@
     {
       "path": "values",
       "method": "GET",
-      "url": "https://grafana-backend.server-eye.de/",
+      "url": "https://api-ms.server-eye.de/grafana-plugin",
       "headers": [
         {
           "name": "X-API-Key",

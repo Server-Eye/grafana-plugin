@@ -10,8 +10,9 @@ It can display all the data from your sensors via access to our API with one of 
 
 In order to use this, you can either download the plugin straight from the GitHub releases page of the repository [here](https://github.com/server-eye/grafana-plugin/releases), unzipping into your Grafana Plugin directory.
 
-Alternatively you can download it from the official Grafana plugin store [here](https://grafana.com/grafana/plugins), looking for ServerEye and following the instructions there.
+A set of instructions in german is available [here](https://github.com/Server-Eye/grafana-plugin/blob/master/INSTALLATION_GERMAN.md).
 
+~~Alternatively you can download it from the official Grafana plugin store [here](https://grafana.com/grafana/plugins), looking for ServerEye and following the instructions there.~~
 ## Configuration
 
 All that is needed is an API key from your OCC. Just copy it into the API key field on the config page of your ServerEye datasource instance. This will give you access to all the agents that that API key is authorized with.
@@ -20,4 +21,4 @@ All that is needed is an API key from your OCC. Just copy it into the API key fi
 
 ## Requirements
 
-This plugin requires a Grafana version greater or equal to 6.5 
+This plugin requires a Grafana version greater or equal to 7 
