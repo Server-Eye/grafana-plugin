@@ -6,18 +6,28 @@ import {
   MutableDataFrame,
 } from '@grafana/data';
 
-import { ServerEyeQuery, ServerEyeDataSourceOptions, Target, TimeSeries } from './types';
+import { getBackendSrv } from '@grafana/runtime';
+
+import { ServerEyeQuery, ServerEyeDataSourceOptions, Target, Measurement } from './types';
 
 export class DataSource extends DataSourceApi<ServerEyeQuery, ServerEyeDataSourceOptions> {
   backendServerURL: string;
-  backendServerPort: number;
+  proxyPath: string;
 
   /** @ngInject */
-  constructor(instanceSettings: DataSourceInstanceSettings<ServerEyeDataSourceOptions>, private backendSrv: any) {
+  constructor(instanceSettings: DataSourceInstanceSettings<ServerEyeDataSourceOptions>) {
     super(instanceSettings);
-    this.backendServerPort = instanceSettings.jsonData.backendServerPort || 80;
-    this.backendServerURL = instanceSettings.url || 'https://api-ms.server-eye.de/grafana-plugin';
-    this.backendSrv = backendSrv;
+    switch (instanceSettings.jsonData.backendServerVersion) {
+      case 'BETA':
+        this.proxyPath = 'grafana-plugin-beta';
+        break;
+
+      default:
+        this.proxyPath = 'grafana-plugin';
+        break;
+    }
+
+    this.backendServerURL = instanceSettings.url || 'https://api-ms.server-eye.de/3/grafana-plugin';
   }
 
   async query(options: DataQueryRequest<ServerEyeQuery>): Promise<DataQueryResponse> {
@@ -30,36 +40,38 @@ export class DataSource extends DataSourceApi<ServerEyeQuery, ServerEyeDataSourc
         if (query.hide) {
           return new MutableDataFrame();
         } else {
-          return this.doQuery(target.agentid, target.selectedAgentTarget.value || '', from, to).then(
-            (result: TimeSeries) => {
-              if (!result.values) {
-                return new MutableDataFrame();
-              }
-              const times: number[] = [];
-              const values: number[] = [];
-              result.values.forEach((value) => {
+          return this.doQuery(target.agentid, target.selectedAgentTarget.value || '', from, to).then((result) => {
+            if (!result || !result.length) {
+              return new MutableDataFrame();
+            }
+            const times: number[] = [];
+            const values: number[] = [];
+            result.forEach((value) => {
+              if (value) {
                 times.push(value.msDate);
                 values.push(value.value);
-              });
-              const fields: any[] = [
-                { type: 'time', values: times },
-                { name: query.selectedAgentTarget.value, type: 'number', values: values },
-              ];
-              return new MutableDataFrame({ name: target.selectedAgentTarget.value, refId: query.refId, fields });
-            }
-          );
+              }
+            });
+            const fields: any[] = [
+              { type: 'time', values: times },
+              { name: query.selectedAgentTarget.value, type: 'number', values: values },
+            ];
+            return new MutableDataFrame({ name: target.selectedAgentTarget.value, refId: query.refId, fields });
+          });
         }
       })
     );
     return { data };
   }
 
-  async doQuery(agentId: string, saveName: string, from: number, to: number): Promise<TimeSeries> {
-    return this.backendSrv
+  async doQuery(agentId: string, saveName: string, from: number, to: number): Promise<Array<Measurement | null>> {
+    const url = `${this.backendServerURL}/${this.proxyPath}/${agentId}/${saveName}/${from}/${to}`;
+    return getBackendSrv()
       .datasourceRequest({
-        url: `${this.backendServerURL}/${agentId}/${saveName}/${from}/${to}`,
+        url,
       })
       .then((value: any) => {
+        console.log(value);
         return value.data;
       })
       .catch((error: Error) => {
@@ -67,10 +79,11 @@ export class DataSource extends DataSourceApi<ServerEyeQuery, ServerEyeDataSourc
       });
   }
 
-  async retrieveTargetsForAgent(agendtId: string): Promise<Target[]> {
-    return this.backendSrv
+  async retrieveTargetsForAgent(agentId: string): Promise<Target[]> {
+    const url = `${this.backendServerURL}/${this.proxyPath}/${agentId}/targets`;
+    return getBackendSrv()
       .datasourceRequest({
-        url: this.backendServerURL + `/${agendtId}/targets`,
+        url,
         method: 'GET',
       })
       .then((value: any) => {

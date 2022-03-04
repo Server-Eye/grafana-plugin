@@ -40,13 +40,13 @@
       }
     ],
     "version": "1.0.0",
-    "updated": "2021-08-03"
+    "updated": "2022-03-04"
   },
   "routes": [
     {
-      "path": "targets",
+      "path": "grafana-plugin-beta",
       "method": "GET",
-      "url": "https://api-ms.server-eye.de/grafana-plugin",
+      "url": "https://api-ms-beta.server-eye.de/3/grafana-plugin",
       "headers": [
         {
           "name": "X-API-Key",
@@ -55,9 +55,9 @@
       ]
     },
     {
-      "path": "values",
+      "path": "grafana-plugin",
       "method": "GET",
-      "url": "https://api-ms.server-eye.de/grafana-plugin",
+      "url": "https://api-ms.server-eye.de/3/grafana-plugin",
       "headers": [
         {
           "name": "X-API-Key",

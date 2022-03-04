@@ -11,13 +11,11 @@ export interface ServerEyeQuery extends DataQuery {
  * These are options configured for each DataSource instance
  */
 export interface ServerEyeDataSourceOptions extends DataSourceJsonData {
-  backendServerURL: string;
-  backendServerPort: number;
+  backendServerVersion: string;
 }
 
 export const defaultOptions: Partial<ServerEyeDataSourceOptions> = {
-  backendServerURL: 'api-ms.server-eye.de/grafana-plugin',
-  backendServerPort: 80,
+  backendServerVersion: 'PRODUCTION',
 };
 
 /**
@@ -32,17 +30,7 @@ export interface Target {
   name: string;
 }
 
-export interface TimeSeries {
-  values: Measurement[];
-  from: number;
-  to: number;
-}
-
-interface Measurement {
-  unit: number;
+export interface Measurement {
   value: number;
-  maxValue: number;
-  minValue: number;
-  maxPValue: number;
   msDate: number;
 }
