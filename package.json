@@ -1,22 +1,22 @@
 {
-  "name": "server-eye-grafana-plugin",
-  "version": "1.0.0",
-  "description": "ServerEye Grafana Data Source",
-  "scripts": {
-    "build": "grafana-toolkit plugin:build",
-    "test": "grafana-toolkit plugin:test",
-    "dev": "grafana-toolkit plugin:dev",
-    "watch": "grafana-toolkit plugin:dev --watch"
-  },
-  "author": "Grafana Labs",
-  "license": "Apache-2.0",
-  "devDependencies": {
-    "@grafana/data": "^7.5.14",
-    "@grafana/runtime": "^7.5.14",
-    "@grafana/toolkit": "^7.5.14",
-    "@grafana/ui": "^7.5.14",
-    "@types/lodash": "4.14.149",
-    "serialize-javascript": ">=2.1.1",
-    "terser-webpack-plugin": "^1.4.2"
-  }
+    "name": "server-eye-grafana-plugin",
+    "version": "1.1.0",
+    "description": "ServerEye Grafana Data Source",
+    "scripts": {
+        "build": "grafana-toolkit plugin:build",
+        "test": "grafana-toolkit plugin:test",
+        "dev": "grafana-toolkit plugin:dev",
+        "watch": "grafana-toolkit plugin:dev --watch"
+    },
+    "author": "Grafana Labs",
+    "license": "Apache-2.0",
+    "devDependencies": {
+        "@grafana/data": "^7.5.14",
+        "@grafana/runtime": "^7.5.14",
+        "@grafana/toolkit": "^7.5.14",
+        "@grafana/ui": "^7.5.14",
+        "@types/lodash": "4.14.149",
+        "serialize-javascript": ">=2.1.1",
+        "terser-webpack-plugin": "^1.4.2"
+    }
 }
