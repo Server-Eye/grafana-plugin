@@ -11,11 +11,12 @@
   "author": "Grafana Labs",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@grafana/data": "^7.0.0",
-    "@grafana/toolkit": "^7.0.0",
-    "@grafana/ui": "^7.0.0",
+    "@grafana/data": "^7.5.14",
+    "@grafana/runtime": "^7.5.14",
+    "@grafana/toolkit": "^7.5.14",
+    "@grafana/ui": "^7.5.14",
     "@types/lodash": "4.14.149",
-    "terser-webpack-plugin": "^1.4.2",
-    "serialize-javascript": ">=2.1.1"
+    "serialize-javascript": ">=2.1.1",
+    "terser-webpack-plugin": "^1.4.2"
   }
 }
