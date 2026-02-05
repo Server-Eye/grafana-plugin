@@ -27,7 +27,7 @@ export class DataSource extends DataSourceApi<ServerEyeQuery, ServerEyeDataSourc
         break;
     }
 
-    this.backendServerURL = instanceSettings.url || 'https://api-ms.server-eye.de/3/grafana-plugin';
+    this.backendServerURL = instanceSettings.url || 'https://api.server-eye.de/3/grafana-plugin';
   }
 
   async query(options: DataQueryRequest<ServerEyeQuery>): Promise<DataQueryResponse> {

@@ -39,8 +39,8 @@
         "url": "https://raw.githubusercontent.com/Server-Eye/grafana-plugin/master/src/img/overview.png"
       }
     ],
-    "version": "1.0.0",
-    "updated": "2022-03-04"
+    "version": "1.1.0",
+    "updated": "2026-02-05"
   },
   "routes": [
     {
