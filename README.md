@@ -1,3 +1,9 @@
+# DEPRECATION NOTICE
+
+> THIS PROJECT IS DEPRECATED AND NO LONGER MAINTAINED.
+>
+> NO SUPPORT IS GIVEN FOR THIS PROJECT
+
 # Server Eye Grafana data Source
 
 This is a grafana data source plugin for your instance of [ServerEye Monitoring Software](https://server-eye.de).
